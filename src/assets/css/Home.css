@@ -1,0 +1,36 @@
+
+.homepage{
+ position: relative;
+}
+
+.home-container{
+    background-image: linear-gradient(
+        to left,
+        rgba(0, 0, 0, 0.6),
+        rgba(0, 0, 0, 0.6)
+      ),
+      url("https://res.cloudinary.com/dzfz6iwon/image/upload/v1587391749/shutterstock_695770828-900x506_ijc9iw.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;  
+    background-position: center;
+    height: 100vh;
+    width:100%;
+    text-align: center;
+}
+
+.login{
+    /* border-radius: 10px;
+    padding: 20px;
+    background-color: rgb(124, 120, 120);
+    color: #fff;
+    font-size: 1.5em;
+    font-weight: bold; */
+    margin: 50px 20px;
+    margin-right: auto;
+    margin-left: 20px;
+    display: inline-block;
+    font-weight: 800 !important;
+    color: black !important;
+    padding: 10px 6px !important;
+    cursor: pointer;
+}
