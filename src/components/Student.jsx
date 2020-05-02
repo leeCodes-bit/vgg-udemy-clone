@@ -1,51 +1,113 @@
-import React from 'react';
-import { GoogleLogout } from 'react-google-login';
-
+import React, { useState, useEffect, Fragment } from "react";
+import { withRouter, Redirect } from "react-router-dom";
+import { GoogleLogout } from "react-google-login";
 
 function Student(props) {
+  const [data, setData] = useState({});
+  const [signedIn, setSignedIn] = useState(false);
 
-  if (props.loggedIn) {
+  useEffect(() => {
+    /*
+To access the data passed to <Redirect />
+in home component, props.location.state is used.
+
+I extracted the loggedIn and userData I passed
+into their own variable.
+
+I passes an empty array [] to this particular
+useEffect because I want it to render just once
+to prevent infinite loop
+*/
+    if (props.location.state) {
+      const { loggedIn } = props.location.state;
+      const { userData } = props.location.state;
+      setData(userData);
+      setSignedIn(loggedIn);
+    }
+    //passed the extracted data to states
+  }, []);
+
+  /* 
+  second useEffect watches for changes in 
+  signedIn and data state.
+  
+  It also checkes if the data passed
+  to <Redirect />, if it is empty
+  if empty, den student is not authenticated,
+  take them back to home to sign in
+  */
+  useEffect(() => {
+    if (!props.location.state) {
+      props.history.push("/");
+    }
+  }, [signedIn, data]);
+
+  //Google auth logout function
+  const logout = () => {
+    //state is updated back to default
+    setData({});
+    setSignedIn(false);
+
+    /*
+   clear previous data passe to
+   <Redirect /> in Home component
+   */
+    props.location.state = null;
+
+    //when loggedOut, take student back to home
+    props.history.push("/");
+  };
+
+  //show user details when student is signedIn
+  if (signedIn) {
     var user = (
       <div className="user">
-        <img src={props.imageUrl} alt={props.name} />
+        <img src={data.imageUrl} alt={props.name} />
         <div className="dropdown">
           <ul>
-            <li>{props.name}</li>
-            <li>{props.email}</li>
+            <li>{data.name}</li>
+            <li>{data.email}</li>
             <li>
               <GoogleLogout
-              className="logOut-btn"
+                className="logOut-btn"
                 clientId="658977310896-knrl3gka66fldh83dao2rhgbblmd4un9.apps.googleusercontent.com"
                 buttonText="Logout"
-                onLogoutSuccess={props.logout}
-              >
-              </GoogleLogout>
+                onLogoutSuccess={logout}
+              ></GoogleLogout>
             </li>
           </ul>
         </div>
       </div>
-    )
+    );
   }
 
   return (
-    <div className="wrapper">
-      {user}
+    <Fragment>
+      <div className="wrapper">
+        {user}
 
         <h1>Courses</h1>
-      <div className="grid-container">
-        <div className="grid-item"></div>
-        <div className="grid-item"></div>
-        <div className="grid-item"></div>
-        <div className="grid-item"></div>
-        <div className="grid-item"></div>
-        <div className="grid-item"></div>
-        <div className="grid-item"></div>
-        <div className="grid-item"></div>
-        <div className="grid-item"></div>
+        <div className="grid-container">
+          <div className="grid-item"></div>
+          <div className="grid-item"></div>
+          <div className="grid-item"></div>
+          <div className="grid-item"></div>
+          <div className="grid-item"></div>
+          <div className="grid-item"></div>
+          <div className="grid-item"></div>
+          <div className="grid-item"></div>
+          <div className="grid-item"></div>
+        </div>
       </div>
-    </div>
-  )
+    </Fragment>
+  );
 }
 
-
-export default Student
+/* 
+ sometimes, you won't be able to  access
+ react-router methods, because the component
+ is not inheriting it. If such case arises,
+ withRouter is used to make react-router 
+ features available to the component
+ */
+export default withRouter(Student);
