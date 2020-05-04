@@ -39,10 +39,9 @@ const uploadVideo = async e => {
    return file;
   })
   .then(function(data){
-    // console.log(data)
+    console.log(data)
     const url = data.url;
     console.log(url);
-    
   })
   
 }
@@ -141,6 +140,7 @@ to prevent infinite loop
             <video>
               <source src= {video} type="video/mp4" />
             </video>
+         
             )}        
         </div>
       </div>
