@@ -1,6 +1,75 @@
 {
-
-  "videos":[
-      
+  "videos": [
+    {
+      "title": "Dassboki",
+      "description": "I am the lion",
+      "url": "http://res.cloudinary.com/dzfz6iwon/video/upload/v1588667833/lilian/cunvws07u4aqsj5sdzzg.mp4",
+      "id": 1
+    },
+    {
+      "title": "title",
+      "description": "jf skjafk jdk kfksd kfjsdkfksd fkkfasdkfkdsfksdkfksd fkldsfksjdkflskfkdsfkj",
+      "url": "http://res.cloudinary.com/dzfz6iwon/video/upload/v1588669233/lilian/rlewwsugfxsw2atqhisd.mp4",
+      "id": 2
+    },
+    {
+      "title": "WASSCE",
+      "description": "sdadsddssddssdsdssd",
+      "url": "http://res.cloudinary.com/dzfz6iwon/video/upload/v1588669532/lilian/mrurhqn59rwxsx1f4zqd.mp4",
+      "id": 3
+    },
+    {
+      "title": "Pricing component with toggle",
+      "description": "Pricing component with toggle",
+      "url": "http://res.cloudinary.com/dzfz6iwon/video/upload/v1588697938/lilian/qgtcl7qcui8bnjcrq0xd.mp4",
+      "id": 4
+    }
+  ],
+  "students": [
+    {
+      "id": "lilianovrawah@gmail.com",
+      "favourite": [
+        {
+          "title": "Dassboki",
+          "description": "I am the lion",
+          "url": "http://res.cloudinary.com/dzfz6iwon/video/upload/v1588667833/lilian/cunvws07u4aqsj5sdzzg.mp4"
+        },
+        {
+          "title": "title",
+          "description": "jf skjafk jdk kfksd kfjsdkfksd fkkfasdkfkdsfksdkfksd fkldsfksjdkflskfkdsfkj",
+          "url": "http://res.cloudinary.com/dzfz6iwon/video/upload/v1588669233/lilian/rlewwsugfxsw2atqhisd.mp4"
+        },
+        {
+          "title": "WASSCE",
+          "description": "sdadsddssddssdsdssd",
+          "url": "http://res.cloudinary.com/dzfz6iwon/video/upload/v1588669532/lilian/mrurhqn59rwxsx1f4zqd.mp4"
+        },
+        {
+          "title": "Dassboki",
+          "description": "I am the lion",
+          "url": "http://res.cloudinary.com/dzfz6iwon/video/upload/v1588667833/lilian/cunvws07u4aqsj5sdzzg.mp4"
+        },
+        {
+          "title": "Dassboki",
+          "description": "I am the lion",
+          "url": "http://res.cloudinary.com/dzfz6iwon/video/upload/v1588667833/lilian/cunvws07u4aqsj5sdzzg.mp4"
+        },
+        {
+          "title": "Dassboki",
+          "description": "I am the lion",
+          "url": "http://res.cloudinary.com/dzfz6iwon/video/upload/v1588667833/lilian/cunvws07u4aqsj5sdzzg.mp4"
+        },
+        {
+          "title": "Dassboki",
+          "description": "I am the lion",
+          "url": "http://res.cloudinary.com/dzfz6iwon/video/upload/v1588667833/lilian/cunvws07u4aqsj5sdzzg.mp4"
+        },
+        {
+          "title": "Dassboki",
+          "description": "I am the lion",
+          "url": "http://res.cloudinary.com/dzfz6iwon/video/upload/v1588667833/lilian/cunvws07u4aqsj5sdzzg.mp4"
+        }
+      ]
+    }
   ]
 }

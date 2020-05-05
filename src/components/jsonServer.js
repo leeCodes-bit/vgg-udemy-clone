@@ -1,1 +1,1 @@
-export const jsonServer = "http://localhost:5000/videos";
+export const jsonServer = "http://localhost:5000";

@@ -2,31 +2,29 @@ import React, { useState, useEffect, Fragment } from "react";
 import { Redirect, withRouter } from "react-router-dom";
 import { GoogleLogout } from "react-google-login";
 import {Image, Video, Transformation, CloudinaryContext} from 'cloudinary-react';
+import { jsonServer } from './jsonServer';
+import Backdrop from './Backdrop';
+import '../assets/css/Tutor.css';
 
 function Tutor(props) {
   const [data, setData] = useState({});
   const [signedIn, setSignedIn] = useState(false);
   const [video, setVideo] = useState('');
   const [loading, setLoading] = useState(false);
+  const [videoTitle , setVideoTitle] = useState(null);
+  const [videoDesc , setVideoDesc] = useState(null);
+  const [videoFile , setVideoFile] = useState(null);
 
-const uploadVideo = async e => {
-  const files = e.target.files;
+const uploadVideo = (e) => {
+
+  //prevent form default action
+  e.preventDefault();
+
   const data = new FormData();
-  data.append('file', files[0]);
+  data.append('file', videoFile);
   
   data.append('upload_preset', 'lilian');
   setLoading(true);
-  // const res = await fetch(
-  //   '	https://api.cloudinary.com/v1_1/dzfz6iwon/image/upload', 
-  //   {
-  //     method: 'POST',
-  //     body: data
-  //   }
-  // ) 
-  // const file = await res.json();
-
-  // setImage(file.secure_url);
-  // setLoading(false);
   
   fetch('https://api.cloudinary.com/v1_1/dzfz6iwon/video/upload', {
       method: 'POST',
@@ -34,14 +32,35 @@ const uploadVideo = async e => {
   }).then(function(response){
     const file = response.json();
     setVideo(file.secure_url);
-   setLoading(false);
 
    return file;
   })
   .then(function(data){
-    // console.log(data)
+  
     const url = data.url;
-    console.log(url);
+
+    const videoDetails = {
+      title: videoTitle,
+      description: videoDesc,
+      url: url
+    }
+    
+    fetch(`${jsonServer}/videos` , {
+      method: "POST",
+      headers: new Headers({
+        "Content-Type": "application/json"
+      }),
+      body: JSON.stringify(videoDetails)
+    })
+    .then(function(res){
+      if(res.ok) {
+      setLoading(false);
+
+      const form = document.getElementById('form');
+
+      form.reset();
+      }
+    })
     
   })
   
@@ -83,6 +102,11 @@ to prevent infinite loop
     }
   }, [signedIn, data]);
 
+  // useEffect(()=> {
+   
+  // }, [videoDesc,videoTitle,videoFile])
+
+
   //Google auth logout function
   const logout = () => {
     //state is updated back to default
@@ -98,6 +122,21 @@ to prevent infinite loop
     //when loggedOut, take student back to home
     props.history.push("/");
   };
+
+  const formData = (e) => {
+  
+    if(e.target.name === 'title') {
+      setVideoTitle(e.target.value)
+    }
+
+    if(e.target.name === 'description') {
+      setVideoDesc(e.target.value)
+    }
+
+    if(e.target.name === 'file') {
+      setVideoFile(e.target.files[0])
+    }
+  }
 
   //show user details when student is signedIn
   if (signedIn) {
@@ -124,24 +163,45 @@ to prevent infinite loop
 
   return (
     <Fragment>
+    { loading ? 
+    <Backdrop />
+    : null }
       <div className="wrapper">
         {user}
 
-        <div className="grid-container">
-          <h4>Upload Courses</h4>
+        <div className="form-container">
+          
+          <form 
+          onSubmit={uploadVideo} 
+          id="form"
+          className="form-data">
+          <h3>Upload a Video</h3>
+          <label 
+          htmlFor="title">Title</label><br/>
           <input 
-            type="file"
-            name ="file"
-            placeholder="upload a video"
-            onChange ={uploadVideo}
-          />
-          {loading ? (
-            <h3>Loading...</h3>
-          ): (
-            <video>
-              <source src= {video} type="video/mp4" />
-            </video>
-            )}        
+          required
+          type="text" 
+          onChange={formData} 
+          name="title" 
+          placeholder="Enter Title" /><br/>                   
+          <label 
+          htmlFor="description">Description</label><br/>
+          <textarea
+          required
+           onChange={formData}
+            placeholder="Enter description" 
+            name="description"></textarea><br/>
+          <input 
+          type="file" 
+          required 
+          name ="file"
+           placeholder="upload a video" 
+           onChange ={formData}  /><br/>
+          <button 
+          className="btn"
+           type="submit"
+            style={{borderRadius: "10px", padding: "10px 50px", fontWeight: "bold", display: "inline-block"}}>Submit</button>
+          </form>
         </div>
       </div>
     </Fragment>
